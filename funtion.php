@@ -17,6 +17,25 @@ if(isset($_POST['addnewalat'])){
     }
 };
 
+if(isset($_POST['alatmasuk'])){
+    $alatnya = $_POST['alatnya'];
+    $penerima = $_POST['penerima'];
+    $qty = $_POST['qty'];
 
+    $cekstoksekarang = mysqli_query($conn,"select * from stock where id_alat='$alatnya'");
+    $ambildatanya = mysqli_fatch_array($cekstokalatsekarang);
+
+    $stoksekarang = $ambildatanya['stok'];
+    $tambahstoksekarangdenganqty = $stoksekarang+$qty
+
+    $addtomasuk = mysqli_query($conn,"insert into masuk (id_alat, keterangan, qty) velues('$alatnya','$penerima','$qty')");
+    $updatestokmasuk = mysqli_query($conn,"update stok set stok='$tambahstoksekarangdenganqty' where id_alat='$alatnya'");
+    if($addtomasuk&&$updatestokmasuk){
+        header('location:masuk.php');
+    }else{
+        echo 'Gagal';
+        header('location:masuk.php');
+    }
+}
 
 ?>
